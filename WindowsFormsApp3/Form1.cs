@@ -28,8 +28,8 @@ namespace WindowsFormsApp3
                 for (int j = 0; j < 3; j++)
                 {
                     buttons[i, j] = new Button();
-                    buttons[i, j].Size = new Size(50, 50);
-                    buttons[i, j].Location = new Point(i * 50, j * 50);
+                    buttons[i, j].Size = new Size(45, 45);
+                    buttons[i, j].Location = new Point(i * 45, j * 45);
                     buttons[i, j].FlatStyle = FlatStyle.Flat;
                     buttons[i, j].Font = new System.Drawing.Font(DefaultFont.FontFamily, 20, FontStyle.Bold);
 
@@ -58,24 +58,24 @@ namespace WindowsFormsApp3
         {
             GameEnd();
 
-            if (button1.Text == "X")
+            if (button1.Text == "A")
             {
-                button1.Text = "O";
+                button1.Text = "B";
             }
             else
             {
-                button1.Text = "X";
+                button1.Text = "A";
             }
         }
 
         private void GameEnd()
         {
-            List<Button> winnerButtons = new List<Button>();
+            List<Button> wButtons = new List<Button>();
 
             #region // vertically
             for (int i = 0; i < 3; i++)
             {
-                winnerButtons = new List<Button>();
+                wButtons = new List<Button>();
                 for (int j = 0; j < 3; j++)
                 {
                     if (buttons[i, j].Text != button1.Text)
@@ -83,10 +83,10 @@ namespace WindowsFormsApp3
                         break;
                     }
 
-                    winnerButtons.Add(buttons[i, j]);
+                    wButtons.Add(buttons[i, j]);
                     if (j == 2)
                     {
-                        ShowWinner(winnerButtons);
+                        ShowWinner(wButtons);
                         return;
                     }
                 }
@@ -95,7 +95,7 @@ namespace WindowsFormsApp3
             #region // horizontally
             for (int i = 0; i < 3; i++)
             {
-                winnerButtons = new List<Button>();
+                wButtons = new List<Button>();
                 for (int j = 0; j < 3; j++)
                 {
                     if (buttons[j, i].Text != button1.Text)
@@ -103,17 +103,17 @@ namespace WindowsFormsApp3
                         break;
                     }
 
-                    winnerButtons.Add(buttons[j, i]);
+                    wButtons.Add(buttons[j, i]);
                     if (j == 2)
                     {
-                        ShowWinner(winnerButtons);
+                        ShowWinner(wButtons);
                         return;
                     }
                 }
             }
             #endregion            
             #region// diagonally 1 (top-left to bottom-right)
-            winnerButtons = new List<Button>();
+            wButtons = new List<Button>();
             for (int i = 0, j = 0; i < 3; i++, j++)
             {
                 if (buttons[i, j].Text != button1.Text)
@@ -121,16 +121,16 @@ namespace WindowsFormsApp3
                     break;
                 }
 
-                winnerButtons.Add(buttons[i, j]);
+                wButtons.Add(buttons[i, j]);
                 if (j == 2)
                 {
-                    ShowWinner(winnerButtons);
+                    ShowWinner(wButtons);
                     return;
                 }
             }
             #endregion
             #region// diagonally 2 (bottom-left to top-right)
-            winnerButtons = new List<Button>();
+            wButtons = new List<Button>();
             for (int i = 2, j = 0; j < 3; i--, j++)
             {
                 if (buttons[i, j].Text != button1.Text)
@@ -138,10 +138,10 @@ namespace WindowsFormsApp3
                     break;
                 }
 
-                winnerButtons.Add(buttons[i, j]);
+                wButtons.Add(buttons[i, j]);
                 if (j == 2)
                 {
-                    ShowWinner(winnerButtons);
+                    ShowWinner(wButtons);
                     return;
                 }
             }
@@ -153,21 +153,19 @@ namespace WindowsFormsApp3
                     return;
             }
 
-            MessageBox.Show("무승부");
+            MessageBox.Show("무승부 입니다 !!!!!");
             Application.Restart();
         }
 
-        private void ShowWinner(List<Button> winnerButtons)
+        private void ShowWinner(List<Button> wButtons)
         {
-            foreach (var button in winnerButtons)
+            foreach (var button in wButtons)
             {
                 button.BackColor = Color.Gold;
             }
 
-            MessageBox.Show(button1.Text + " 가 이김!!!!!!");
+            MessageBox.Show(button1.Text + " 가 이겼습니다!!!!!!");
             Application.Restart();
         }
-
-
     }
 }
