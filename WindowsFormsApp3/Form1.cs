@@ -51,10 +51,10 @@ namespace WindowsFormsApp3
 
             button.Text = button1.Text;
 
-            TogglePlayer();
+            ABAB();
         }
 
-        private void TogglePlayer()
+        private void ABAB()
         {
             GameEnd();
 
@@ -72,27 +72,7 @@ namespace WindowsFormsApp3
         {
             List<Button> wButtons = new List<Button>();
 
-            #region // vertically
-            for (int i = 0; i < 3; i++)
-            {
-                wButtons = new List<Button>();
-                for (int j = 0; j < 3; j++)
-                {
-                    if (buttons[i, j].Text != button1.Text)
-                    {
-                        break;
-                    }
-
-                    wButtons.Add(buttons[i, j]);
-                    if (j == 2)
-                    {
-                        ShowWinner(wButtons);
-                        return;
-                    }
-                }
-            }
-            #endregion            
-            #region // horizontally
+            //가로
             for (int i = 0; i < 3; i++)
             {
                 wButtons = new List<Button>();
@@ -111,8 +91,28 @@ namespace WindowsFormsApp3
                     }
                 }
             }
-            #endregion            
-            #region// diagonally 1 (top-left to bottom-right)
+
+            //세로
+            for (int i = 0; i < 3; i++)
+            {
+                wButtons = new List<Button>();
+                for (int j = 0; j < 3; j++)
+                {
+                    if (buttons[i, j].Text != button1.Text)
+                    {
+                        break;
+                    }
+
+                    wButtons.Add(buttons[i, j]);
+                    if (j == 2)
+                    {
+                        ShowWinner(wButtons);
+                        return;
+                    }
+                }
+            }
+                        
+            // 대각선
             wButtons = new List<Button>();
             for (int i = 0, j = 0; i < 3; i++, j++)
             {
@@ -128,8 +128,9 @@ namespace WindowsFormsApp3
                     return;
                 }
             }
-            #endregion
-            #region// diagonally 2 (bottom-left to top-right)
+            
+            
+            //대각선2
             wButtons = new List<Button>();
             for (int i = 2, j = 0; j < 3; i--, j++)
             {
@@ -145,7 +146,7 @@ namespace WindowsFormsApp3
                     return;
                 }
             }
-            #endregion
+            
 
             foreach (var button in buttons)
             {
@@ -154,6 +155,7 @@ namespace WindowsFormsApp3
             }
 
             MessageBox.Show("무승부 입니다 !!!!!");
+
             Application.Restart();
         }
 
@@ -161,6 +163,8 @@ namespace WindowsFormsApp3
         {
             foreach (var button in wButtons)
             {
+                //이긴 버튼 색깔 골드로
+
                 button.BackColor = Color.Gold;
             }
 
